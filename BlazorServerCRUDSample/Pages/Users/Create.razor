@@ -1,7 +1,6 @@
 ﻿@page "/users/create"
 @inject IUserService UserService;
 
-
 <UsersHeader />
 
 <MudText Typo="Typo.h3" GutterBottom="true">ユーザー作成</MudText>
@@ -11,7 +10,9 @@
     <DataAnnotationsValidator />
 
     <MudTextField T="string" Label="名前" Required="true" @bind-Value="vm.UserName" RequiredError="名前を入力してください" />
+    <br />
     <MudTextField T="string" Label="Emailアドレス" Required="true" @bind-Value="vm.MailAddress" RequiredError="Emailアドレスを入力してください" />
+    <br />
     <MudDatePicker Label="誕生日" @bind-Date="vm.BirthDay" />
 
     <br />

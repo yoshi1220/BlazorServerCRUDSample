@@ -17,25 +17,43 @@
             <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.UserName)">名前</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.MailAddress)">Email</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.BirthDay)">誕生日</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd DataLabel="ユーザー番号">@context.UserId</MudTd>
             <MudTd DataLabel="名前">@context.UserName</MudTd>
             <MudTd DataLabel="Email">@context.MailAddress</MudTd>
             <MudTd DataLabel="誕生日">@(context.BirthDay.HasValue ? context.BirthDay.Value.ToString("yyyy年MM月dd日")  : "")</MudTd>
+            <MudTd>
+                <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+                    <MudButton @onclick="() => OnClickEdit(context.UserId)">編集</MudButton>
+                    <MudButton @onclick="() => OnClickDelete(context.UserId)">削除</MudButton>
+                </MudButtonGroup>
+            </MudTd>
         </RowTemplate>
         <PagerContent>
             <MudTablePager PageSizeOptions="new int[]{10, 50, 100}" />
         </PagerContent>
     </MudTable>
+
 }
 
 @code {
     private List<User> users;
 
     protected override void OnInitialized()
-    {      
+    {
         //ユーザー一覧データの取得
         users = UserService.GetAll().ToList();
+    }
+
+    private void OnClickEdit(int userId)
+    {
+        Console.WriteLine("edit id:" + userId);
+    }
+
+    private void OnClickDelete(int userId)
+    {
+        Console.WriteLine("delete id:" + userId);
     }
 }
