@@ -20,6 +20,7 @@ namespace BlazorServerCRUDSample.Repositories
         public void Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
+            _context.SaveChanges();
         }
 
         public TEntity Get(int id)
@@ -35,6 +36,7 @@ namespace BlazorServerCRUDSample.Repositories
         public void Remove(TEntity entity)
         {
             _context.Set<TEntity>().Remove(entity);
+            _context.SaveChanges();
         }
     }
 }

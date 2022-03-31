@@ -5,6 +5,7 @@ using BlazorServerCRUDSample.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,11 +23,14 @@ builder.Services.AddDbContext<SampleDbContext>(options =>
 });
 
 //Repository関連
-//services.AddScoped<IUserRepository, UserRepository>(); //EntityFrameworkCoreを使う場合
-builder.Services.AddScoped<IUserRepository, UserRepositoryDapper>(); //Dapperを使う場合
+builder.Services.AddScoped<IUserRepository, UserRepository>(); //EntityFrameworkCoreを使う場合
+//builder.Services.AddScoped<IUserRepository, UserRepositoryDapper>(); //Dapperを使う場合
 
 //Service関連            
 builder.Services.AddScoped<IUserService, UserService>();
+
+//MudBlazor
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 

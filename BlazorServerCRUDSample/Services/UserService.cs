@@ -17,7 +17,7 @@ namespace BlazorServerCRUDSample.Services
 
         public void Add(User entity)
         {
-            throw new NotImplementedException();
+            _userRepository.Add(entity);
         }
 
         public User Get(int id)

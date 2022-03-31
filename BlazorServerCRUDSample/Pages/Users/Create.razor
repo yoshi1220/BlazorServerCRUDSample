@@ -1,10 +1,70 @@
 ﻿@page "/users/create"
+@inject IUserService UserService;
 
 
 <UsersHeader />
 
-<h3>Create</h3>
+<MudText Typo="Typo.h3" GutterBottom="true">ユーザー作成</MudText>
+
+<EditForm Model="@vm" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit" >
+
+    <DataAnnotationsValidator />
+
+    <MudTextField T="string" Label="名前" Required="true" @bind-Value="vm.UserName" RequiredError="名前を入力してください" />
+    <MudTextField T="string" Label="Emailアドレス" Required="true" @bind-Value="vm.MailAddress" RequiredError="Emailアドレスを入力してください" />
+    <MudDatePicker Label="誕生日" @bind-Date="vm.BirthDay" />
+
+    <br />
+
+    @if (success)
+    {
+        <MudText Color="Color.Success">登録に成功しました</MudText>
+    }
+    else
+    {
+        <MudText Color="@Color.Error">
+            <ValidationSummary />
+        </MudText>
+    }
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">登録</button>
+
+
+</EditForm>
 
 @code {
+    private UserViewModel vm { get; set; } = null;
+    private bool success = false;
+
+    protected override void OnInitialized()
+    {
+        vm = new UserViewModel();
+    }
+
+    private void OnValidSubmit()
+    {
+        // Mapするモデルの設定
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<UserViewModel, User>();
+        });
+
+        // Mapperを作成
+        var mapper = config.CreateMapper();
+        // UserViewModelのデータがUserの型でマッピングされる
+        var user = mapper.Map<User>(vm);
+
+        UserService.Add(user);
+
+        success = true;
+        this.StateHasChanged();
+    }
+
+    private void OnInvalidSubmit()
+    {
+        success = false;
+    }
 
 }

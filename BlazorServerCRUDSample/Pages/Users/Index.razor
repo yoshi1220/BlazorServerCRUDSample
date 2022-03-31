@@ -1,37 +1,40 @@
 ﻿@page "/users/index"
 @inject IUserService UserService;
 
+<PageTitle>Users</PageTitle>
+
+
+
 <UsersHeader />
 
-<h3>Users List</h3>
+<MudText Typo="Typo.h3" GutterBottom="true">ユーザーリスト</MudText>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ユーザー番号</th>
-            <th>名前</th>
-            <th>Email</th>
-            <th>誕生日</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in users)
-        {
-            <tr>
-                <td>@user.UserId</td>
-                <td>@user.UserName</td>
-                <td>@user.MailAddress</td>
-                <td>@user.BirthDay.ToString("yyyy年MM月dd日")</td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (users != null)
+{
+    <MudTable Items="users" Hover="true" SortLabel="Sort By" Elevation="0">
+        <HeaderContent>
+            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<User, object>(x=>x.UserId)">ユーザー番号</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.UserName)">名前</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.MailAddress)">Email</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.BirthDay)">誕生日</MudTableSortLabel></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="ユーザー番号">@context.UserId</MudTd>
+            <MudTd DataLabel="名前">@context.UserName</MudTd>
+            <MudTd DataLabel="Email">@context.MailAddress</MudTd>
+            <MudTd DataLabel="誕生日">@(context.BirthDay.HasValue ? context.BirthDay.Value.ToString("yyyy年MM月dd日")  : "")</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager PageSizeOptions="new int[]{10, 50, 100}" />
+        </PagerContent>
+    </MudTable>
+}
 
 @code {
     private List<User> users;
 
     protected override void OnInitialized()
-    {
+    {      
         //ユーザー一覧データの取得
         users = UserService.GetAll().ToList();
     }
