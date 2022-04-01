@@ -1,9 +1,8 @@
 ﻿@page "/users/index"
 @inject IUserService UserService;
+@inject NavigationManager NavigationManager
 
 <PageTitle>Users</PageTitle>
-
-
 
 <UsersHeader />
 
@@ -49,7 +48,7 @@
 
     private void OnClickEdit(int userId)
     {
-        Console.WriteLine("edit id:" + userId);
+        NavigationManager.NavigateTo($"/users/edit/{userId}");
     }
 
     private void OnClickDelete(int userId)

@@ -14,6 +14,8 @@ namespace BlazorServerCRUDSample.Services
         TEntity Get(int id);
         IEnumerable<TEntity> GetAll();
         void Add(TEntity entity);
+
+        void Update(TEntity entity);
         void Remove(TEntity entity);
     }
 }

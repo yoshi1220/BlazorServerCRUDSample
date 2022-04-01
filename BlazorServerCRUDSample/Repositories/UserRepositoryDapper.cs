@@ -42,5 +42,16 @@ namespace BlazorServerCRUDSample.Repositories
         {
             throw new NotImplementedException();
         }
+
+
+        public void Update(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(User entity, int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

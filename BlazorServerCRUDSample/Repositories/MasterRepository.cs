@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,5 +39,24 @@ namespace BlazorServerCRUDSample.Repositories
             _context.Set<TEntity>().Remove(entity);
             _context.SaveChanges();
         }
+
+        //public void Update(TEntity entity, int id)
+        //{
+        //    var entry = _context.Set<TEntity>().Find(id);
+
+        //    // Mapするモデルの設定
+        //    var config = new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<TEntity, TEntity>();
+        //    });
+        //    // Mapperを作成
+        //    var mapper = config.CreateMapper();
+        //    // UserViewModelのデータがUserの型でマッピングされる
+        //    entry = mapper.Map<TEntity>(entity);
+
+        ////    var entry2 = _context.Entry(entry);
+        ////    entry2.State = EntityState.Modified;
+        //    _context.SaveChanges();
+        //}
     }
 }

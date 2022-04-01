@@ -1,0 +1,92 @@
+﻿@page "/users/edit/{UserId}"
+@inject IUserService UserService;
+
+
+<UsersHeader />
+
+<MudText Typo="Typo.h3" GutterBottom="true">ユーザー編集</MudText>
+
+<EditForm Model="@vm" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
+
+    <DataAnnotationsValidator />
+    <MudTextField T="int" Label="ユーザー番号" Required="true" @bind-Value="vm.UserId" Variant="Variant.Filled" Disabled="true" />
+    <br />
+    <MudTextField T="string" Label="名前" Required="true" @bind-Value="vm.UserName" RequiredError="名前を入力してください" />
+    <br />
+    <MudTextField T="string" Label="Emailアドレス" Required="true" @bind-Value="vm.MailAddress" RequiredError="Emailアドレスを入力してください" />
+    <br />
+    <MudDatePicker Label="誕生日" @bind-Date="vm.BirthDay" />
+
+    <br />
+
+    @if (success)
+    {
+        <MudText Color="Color.Success">更新に成功しました</MudText>
+    }
+    else
+    {
+        <MudText Color="@Color.Error">
+            <ValidationSummary />
+        </MudText>
+    }
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">更新</button>
+
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public string UserId { get; set; }
+    private UserViewModel vm { get; set; } = null;
+    private bool success = false;
+
+    protected override void OnInitialized()
+    {
+        int userId;
+        if (!string.IsNullOrEmpty(UserId) && int.TryParse(UserId, out userId))
+        {
+
+            // Mapするモデルの設定
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<User, UserViewModel>();
+            });
+
+            //ユーザー一覧データの取得
+            var user = UserService.Get(userId);
+
+            // Mapperを作成
+            var mapper = config.CreateMapper();
+            // UserのデータがUserViewModelの型でマッピングされる
+            vm = mapper.Map<UserViewModel>(user);
+        }
+    }
+
+    private void OnValidSubmit()
+    {
+        // Mapするモデルの設定
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<UserViewModel, User>();
+        });
+
+        // Mapperを作成
+        var mapper = config.CreateMapper();
+        // UserViewModelのデータがUserの型でマッピングされる
+        var user = mapper.Map<User>(vm);
+
+        UserService.Update(user);
+
+        success = true;
+        this.StateHasChanged();
+    }
+
+    private void OnInvalidSubmit()
+    {
+        success = false;
+    }
+
+}

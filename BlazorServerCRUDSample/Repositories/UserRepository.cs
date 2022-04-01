@@ -20,5 +20,14 @@ namespace BlazorServerCRUDSample.Repositories
         {
             get { return _context as SampleDbContext; }
         }
+
+        public void Update(User entity)
+        {
+            var entry = _context.Set<User>().Find(entity.UserId)!;
+            entry.UserName = entity.UserName;
+            entry.MailAddress = entity.MailAddress;
+            entry.BirthDay = entity.BirthDay;
+            _context.SaveChanges();
+        }
     }
 }

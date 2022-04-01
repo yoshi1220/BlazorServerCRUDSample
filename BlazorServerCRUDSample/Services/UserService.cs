@@ -22,7 +22,7 @@ namespace BlazorServerCRUDSample.Services
 
         public User Get(int id)
         {
-            throw new NotImplementedException();
+            return _userRepository.Get(id);
         }
 
         /// <summary>
@@ -36,7 +36,13 @@ namespace BlazorServerCRUDSample.Services
 
         public void Remove(User entity)
         {
-            throw new NotImplementedException();
+            _userRepository.Remove(entity);
         }
+
+        public void Update(User entity)
+        {
+            _userRepository.Update(entity);
+        }
+
     }
 }
