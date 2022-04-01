@@ -1,27 +1,27 @@
-﻿@page "/users/edit/{UserId}"
+﻿@page "/users/delete/{UserId}"
 @inject IUserService UserService;
 @inject NavigationManager NavigationManager
 
 <UsersHeader />
 
-<MudText Typo="Typo.h3" GutterBottom="true">ユーザー編集</MudText>
+<MudText Typo="Typo.h3" GutterBottom="true">ユーザー削除</MudText>
 
 <EditForm Model="@vm" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
 
     <DataAnnotationsValidator />
     <MudTextField T="int" Label="ユーザー番号" Required="true" @bind-Value="vm.UserId" Variant="Variant.Filled" Disabled="true" />
     <br />
-    <MudTextField T="string" Label="名前" Required="true" @bind-Value="vm.UserName" RequiredError="名前を入力してください" />
+    <MudTextField T="string" Label="名前" Required="true" @bind-Value="vm.UserName" Variant="Variant.Filled" Disabled="true" />
     <br />
-    <MudTextField T="string" Label="Emailアドレス" Required="true" @bind-Value="vm.MailAddress" RequiredError="Emailアドレスを入力してください" />
+    <MudTextField T="string" Label="Emailアドレス" Required="true" @bind-Value="vm.MailAddress" Variant="Variant.Filled" Disabled="true" />
     <br />
-    <MudDatePicker Label="誕生日" @bind-Date="vm.BirthDay" />
+    <MudDatePicker Label="誕生日" @bind-Date="vm.BirthDay" Variant="Variant.Filled" Disabled="true" />
 
     <br />
 
     @if (success)
     {
-        <MudText Color="Color.Success">更新に成功しました</MudText>
+        <MudText Color="Color.Success">削除に成功しました</MudText>
     }
     else
     {
@@ -32,7 +32,7 @@
 
     <br />
 
-    <button type="submit" class="btn btn-primary">更新</button>
+    <button type="submit" class="btn btn-danger">削除</button>
 
 
 </EditForm>
@@ -42,10 +42,11 @@
     public string UserId { get; set; }
     private UserViewModel vm { get; set; } = null;
     private bool success = false;
+    private int userId;
 
     protected override void OnInitialized()
     {
-        int userId;
+
         if (!string.IsNullOrEmpty(UserId) && int.TryParse(UserId, out userId))
         {
 
@@ -78,7 +79,7 @@
         // UserViewModelのデータがUserの型でマッピングされる
         var user = mapper.Map<User>(vm);
 
-        UserService.Update(user);
+        UserService.Remove(userId);
 
         success = true;
         this.StateHasChanged();

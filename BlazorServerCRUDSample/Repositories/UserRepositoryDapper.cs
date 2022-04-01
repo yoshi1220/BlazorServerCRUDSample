@@ -43,6 +43,11 @@ namespace BlazorServerCRUDSample.Repositories
             throw new NotImplementedException();
         }
 
+        public void Remove(int id)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public void Update(User entity)
         {

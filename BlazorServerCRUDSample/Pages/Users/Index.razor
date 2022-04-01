@@ -53,6 +53,6 @@
 
     private void OnClickDelete(int userId)
     {
-        Console.WriteLine("delete id:" + userId);
+        NavigationManager.NavigateTo($"/users/delete/{userId}");
     }
 }

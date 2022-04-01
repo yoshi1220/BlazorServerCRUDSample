@@ -34,9 +34,10 @@ namespace BlazorServerCRUDSample.Repositories
             return _context.Set<TEntity>().ToList();
         }
 
-        public void Remove(TEntity entity)
+        public void Remove(int id)
         {
-            _context.Set<TEntity>().Remove(entity);
+            var entry = _context.Set<TEntity>().Find(id);
+            _context.Set<TEntity>().Remove(entry);
             _context.SaveChanges();
         }
 

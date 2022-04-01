@@ -1,11 +1,12 @@
 ﻿@page "/users/create"
 @inject IUserService UserService;
+@inject NavigationManager NavigationManager
 
 <UsersHeader />
 
 <MudText Typo="Typo.h3" GutterBottom="true">ユーザー作成</MudText>
 
-<EditForm Model="@vm" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit" >
+<EditForm Model="@vm" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
 
     <DataAnnotationsValidator />
 
@@ -44,7 +45,7 @@
         vm = new UserViewModel();
     }
 
-    private void OnValidSubmit()
+    private async Task OnValidSubmit()
     {
         // Mapするモデルの設定
         var config = new MapperConfiguration(cfg =>
@@ -61,6 +62,17 @@
 
         success = true;
         this.StateHasChanged();
+
+        await Task.Delay(TimeSpan.FromSeconds(2));
+
+        //画面の初期化
+        vm.UserId = 0;
+        vm.UserName = "";
+        vm.MailAddress = "";
+        vm.BirthDay = DateTime.Now.AddYears(-20);
+        success = false;
+        this.StateHasChanged();
+
     }
 
     private void OnInvalidSubmit()

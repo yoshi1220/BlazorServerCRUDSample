@@ -17,6 +17,6 @@ namespace BlazorServerCRUDSample.Repositories
         void Add(TEntity entity);
 
         //void Update(TEntity entity, int id);
-        void Remove(TEntity entity);
+        void Remove(int id);
     }
 }
