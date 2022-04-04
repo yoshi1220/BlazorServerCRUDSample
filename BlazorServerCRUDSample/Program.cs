@@ -1,4 +1,4 @@
-using BlazorServerCRUDSample;
+ï»¿using BlazorServerCRUDSample;
 using BlazorServerCRUDSample.Data;
 using BlazorServerCRUDSample.Repositories;
 using BlazorServerCRUDSample.Services;
@@ -9,24 +9,24 @@ using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//appsettings.json‚©‚çƒf[ƒ^‚ğæ“¾‚·‚éÛ‚Ég—pB‚Ç‚±‚©‚ç‚Å‚àQÆ‰Â”\‚É‚·‚é
+//appsettings.jsonã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹éš›ã«ä½¿ç”¨ã€‚ã©ã“ã‹ã‚‰ã§ã‚‚å‚ç…§å¯èƒ½ã«ã™ã‚‹
 AppSettings.Configuration = builder.Configuration;
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-//DBŠÖ˜A
+//DBé–¢é€£
 builder.Services.AddDbContext<SampleDbContext>(options =>
 {
     options.UseSqlServer(AppSettings.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-//RepositoryŠÖ˜A
-builder.Services.AddScoped<IUserRepository, UserRepository>(); //EntityFrameworkCore‚ğg‚¤ê‡
-//builder.Services.AddScoped<IUserRepository, UserRepositoryDapper>(); //Dapper‚ğg‚¤ê‡
+//Repositoryé–¢é€£
+builder.Services.AddScoped<IUserRepository, UserRepository>(); //EntityFrameworkCoreã‚’ä½¿ã†å ´åˆ
+//builder.Services.AddScoped<IUserRepository, UserRepositoryDapper>(); //Dapperã‚’ä½¿ã†å ´åˆ
 
-//ServiceŠÖ˜A            
+//Serviceé–¢é€£            
 builder.Services.AddScoped<IUserService, UserService>();
 
 //MudBlazor
