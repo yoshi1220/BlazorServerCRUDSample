@@ -28,6 +28,11 @@
         <MudText Color="@Color.Error">
             <ValidationSummary />
         </MudText>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <MudAlert Severity="Severity.Error">@errorMessage</MudAlert>
+        }
     }
 
     <br />
@@ -42,12 +47,13 @@
     public string UserId { get; set; }
     private UserViewModel vm { get; set; } = null;
     private bool success = false;
-    private int _userId;
+    private int userId;
+    private string errorMessage;
 
     protected override void OnInitialized()
     {
-        
-        if (!string.IsNullOrEmpty(UserId) && int.TryParse(UserId, out _userId))
+
+        if (!string.IsNullOrEmpty(UserId) && int.TryParse(UserId, out userId))
         {
 
             // Mapするモデルの設定
@@ -57,7 +63,7 @@
             });
 
             //ユーザー一覧データの取得
-            var user = UserService.Get(_userId);
+            var user = UserService.Get(userId);
 
             // Mapperを作成
             var mapper = config.CreateMapper();
@@ -68,6 +74,10 @@
 
     private async Task OnValidSubmit()
     {
+        //処理判定フラグ等の初期化
+        success = false;
+        errorMessage = "";
+
         // Mapするモデルの設定
         var config = new MapperConfiguration(cfg =>
         {
@@ -79,7 +89,17 @@
         // UserViewModelのデータがUserの型でマッピングされる
         var user = mapper.Map<User>(vm);
 
-        UserService.Update(user, _userId);
+        try
+        {
+
+            UserService.Update(user, userId);
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            errorMessage = ex.ToString();
+            return;
+        }
+
 
         success = true;
         this.StateHasChanged();
@@ -92,6 +112,7 @@
     private void OnInvalidSubmit()
     {
         success = false;
+        errorMessage = "";
     }
 
 }

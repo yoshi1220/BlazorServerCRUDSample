@@ -21,5 +21,8 @@ namespace BlazorServerCRUDSample.Data.Models
 
         [Required(ErrorMessage = "誕生日は必須です")]
         public DateTime? BirthDay { get; set; }
+
+        [Timestamp]
+        public byte[] TimeStamp { get; set; }
     }
 }

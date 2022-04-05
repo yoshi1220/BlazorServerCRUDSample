@@ -51,7 +51,16 @@ namespace BlazorServerCRUDSample.Repositories
 
             _mapper.Map(entity, entry);
 
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Console.WriteLine(ex.ToString()); //ログ出力等をここで実装
+                throw;
+            }
+
         }
     }
 }
