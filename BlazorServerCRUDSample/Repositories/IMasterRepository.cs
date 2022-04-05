@@ -16,7 +16,7 @@ namespace BlazorServerCRUDSample.Repositories
         IEnumerable<TEntity> GetAll();
         void Add(TEntity entity);
 
-        //void Update(TEntity entity, int id);
+        void Update(TEntity entity, int id);
         void Remove(int id);
     }
 }

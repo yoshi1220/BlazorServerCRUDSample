@@ -39,9 +39,9 @@ namespace BlazorServerCRUDSample.Services
             _userRepository.Remove(id);
         }
 
-        public void Update(User entity)
+        public void Update(User entity, int id)
         {
-            _userRepository.Update(entity);
+            _userRepository.Update(entity, id);
         }
 
     }

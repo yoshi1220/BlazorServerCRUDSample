@@ -13,6 +13,6 @@ namespace BlazorServerCRUDSample.Repositories
     public interface IUserRepository : IMasterRepository<User>
     {
 
-        void Update(User entity);
+
     }
 }

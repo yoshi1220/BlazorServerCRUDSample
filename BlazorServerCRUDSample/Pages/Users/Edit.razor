@@ -42,11 +42,12 @@
     public string UserId { get; set; }
     private UserViewModel vm { get; set; } = null;
     private bool success = false;
+    private int _userId;
 
     protected override void OnInitialized()
     {
-        int userId;
-        if (!string.IsNullOrEmpty(UserId) && int.TryParse(UserId, out userId))
+        
+        if (!string.IsNullOrEmpty(UserId) && int.TryParse(UserId, out _userId))
         {
 
             // Mapするモデルの設定
@@ -56,7 +57,7 @@
             });
 
             //ユーザー一覧データの取得
-            var user = UserService.Get(userId);
+            var user = UserService.Get(_userId);
 
             // Mapperを作成
             var mapper = config.CreateMapper();
@@ -78,7 +79,7 @@
         // UserViewModelのデータがUserの型でマッピングされる
         var user = mapper.Map<User>(vm);
 
-        UserService.Update(user);
+        UserService.Update(user, _userId);
 
         success = true;
         this.StateHasChanged();
