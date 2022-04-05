@@ -1,8 +1,5 @@
-﻿using BlazorServerCRUDSample.Data;
-using BlazorServerCRUDSample.Data.Models;
+﻿using BlazorServerCRUDSample.Data.Models;
 using BlazorServerCRUDSample.Repositories;
-using System;
-using System.Collections.Generic;
 
 namespace BlazorServerCRUDSample.Services
 {

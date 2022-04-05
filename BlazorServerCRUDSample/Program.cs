@@ -2,8 +2,6 @@
 using BlazorServerCRUDSample.Data;
 using BlazorServerCRUDSample.Repositories;
 using BlazorServerCRUDSample.Services;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 
