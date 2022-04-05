@@ -7,9 +7,6 @@ using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//appsettings.jsonからデータを取得する際に使用。どこからでも参照可能にする
-AppSettings.Configuration = builder.Configuration;
-
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
@@ -17,7 +14,7 @@ builder.Services.AddServerSideBlazor();
 //DB関連
 builder.Services.AddDbContext<SampleDbContext>(options =>
 {
-    options.UseSqlServer(AppSettings.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 //Repository関連

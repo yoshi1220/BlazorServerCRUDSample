@@ -9,9 +9,9 @@ namespace BlazorServerCRUDSample.Repositories
     {
         private string _connectionString;
 
-        public UserRepositoryDapper()
+        public UserRepositoryDapper(IConfiguration configuration)
         {
-            _connectionString = AppSettings.Configuration.GetConnectionString("DefaultConnection");
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
         public void Add(User entity)
