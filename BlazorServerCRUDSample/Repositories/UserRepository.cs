@@ -6,8 +6,8 @@ namespace BlazorServerCRUDSample.Repositories
 
     public class UserRepository : MasterRepository<User>, IUserRepository
     {
-        public UserRepository(SampleDbContext context)
-            : base(context)
+        public UserRepository(SampleDbContext context, ILogger<UserRepository> logger)
+            : base(context, logger)
         {
 
         }

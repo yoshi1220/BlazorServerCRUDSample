@@ -6,11 +6,15 @@ namespace BlazorServerCRUDSample.Repositories
 {
     public class MasterRepository<TEntity> : IMasterRepository<TEntity> where TEntity : class
     {
+
+        private readonly ILogger<IMasterRepository<TEntity>> _logger;
+
         protected readonly DbContext _context;
         protected readonly IMapper _mapper;
-        public MasterRepository(DbContext context)
+        public MasterRepository(DbContext context, ILogger<IMasterRepository<TEntity>> logger)
         {
             _context = context;
+            _logger = logger;
 
             // Mapするモデルの設定
             var config = new MapperConfiguration(cfg =>
@@ -20,6 +24,7 @@ namespace BlazorServerCRUDSample.Repositories
 
             // Mapperを作成
             _mapper = config.CreateMapper();
+
         }
 
         public void Add(TEntity entity)
@@ -57,7 +62,7 @@ namespace BlazorServerCRUDSample.Repositories
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                Console.WriteLine(ex.ToString()); //ログ出力等をここで実装
+                _logger.LogError(ex, ex.Message); // ログ出力等をここで実装
                 throw;
             }
 
