@@ -31,6 +31,7 @@ namespace BlazorServerCRUDSample.Repositories
         {
             _context.Set<TEntity>().Add(entity);
             _context.SaveChanges();
+            //_context.SaveChangesAsync() //非同期処理の場合はこちらを利用した実装に変更してください。
         }
 
         public TEntity Get(int id)
@@ -48,6 +49,7 @@ namespace BlazorServerCRUDSample.Repositories
             var entry = _context.Set<TEntity>().Find(id);
             _context.Set<TEntity>().Remove(entry);
             _context.SaveChanges();
+            //_context.SaveChangesAsync() //非同期処理の場合はこちらを利用した実装に変更してください。
         }
 
         public void Update(TEntity entity, int id)
@@ -59,6 +61,7 @@ namespace BlazorServerCRUDSample.Repositories
             try
             {
                 _context.SaveChanges();
+                //_context.SaveChangesAsync() //非同期処理の場合はこちらを利用した実装に変更してください。
             }
             catch (DbUpdateConcurrencyException ex)
             {

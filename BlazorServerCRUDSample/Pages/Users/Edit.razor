@@ -100,10 +100,11 @@
             return;
         }
 
-
+        //画面に更新成功の表示
         success = true;
         this.StateHasChanged();
 
+        //2秒待ってからIndexに移動する
         await Task.Delay(TimeSpan.FromSeconds(2));
 
         NavigationManager.NavigateTo($"/users/index");

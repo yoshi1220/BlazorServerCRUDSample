@@ -55,14 +55,17 @@
 
         // Mapperを作成
         var mapper = config.CreateMapper();
+
         // UserViewModelのデータがUserの型でマッピングされる
         var user = mapper.Map<User>(vm);
 
         UserService.Add(user);
 
+        //画面に登録成功の表示
         success = true;
         this.StateHasChanged();
 
+        //2秒待ってから画面を初期化する
         await Task.Delay(TimeSpan.FromSeconds(2));
 
         //画面の初期化
