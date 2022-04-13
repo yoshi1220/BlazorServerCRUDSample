@@ -1,6 +1,4 @@
-﻿using BlazorServerCRUDSample;
-using BlazorServerCRUDSample.Data;
-using BlazorServerCRUDSample.Logger;
+﻿using BlazorServerCRUDSample.Data;
 using BlazorServerCRUDSample.Repositories;
 using BlazorServerCRUDSample.Services;
 using Microsoft.EntityFrameworkCore;
@@ -24,9 +22,6 @@ builder.Services.AddScoped<IUserRepository, UserRepository>(); //EntityFramework
 
 //Service関連            
 builder.Services.AddScoped<IUserService, UserService>();
-
-//Logger関連
-builder.Services.AddSingleton<ILogger, ConsoleLogger>(); //実際には必要なLoggerを実装してください。
 
 //MudBlazor
 builder.Services.AddMudServices();
